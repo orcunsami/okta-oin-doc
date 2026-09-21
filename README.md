@@ -62,7 +62,7 @@ Group: **Query**
 | Label | Definition | Type | Required |
 |---|---|---|---|
 | `startDate` | Start of the window, included. Format `YYYY-MM-DD HH:mm:ss` | Text | Yes |
-| `endDate` | End of the window, not included. Same format | Text | Yes |
+| `endDate` | End of the window, not included. A time of `00:00:00` is the one exception. SOCRadar then reads it as the end of that day, so the day is included. Same format | Text | Yes |
 | `page` | Page number, starting at 1 | Text | Yes |
 | `limit` | Records per page, from 1 to 5000 | Text | Yes |
 
@@ -96,8 +96,8 @@ The records are at `data.data` in `Body`. The total for the whole window is at
   run still ends green.
 - An empty page does not mean the window is done. It is done when the records you fetched reach
   `total_data_count`.
-- Records come newest first. When you page across runs, fix `startDate` and `endDate` once for
-  the whole crawl. Otherwise records are skipped or read twice.
+- Do not rely on the order records arrive in. When you page across runs, fix `startDate` and
+  `endDate` once for the whole crawl. Otherwise records are skipped or read twice.
 - Records can contain passwords in clear text.
 
 ### Close Alarm
@@ -133,7 +133,8 @@ The same **Response** and **Result** groups as Get Botnet Data.
   `false`. Nothing changes.
 - Closing an alarm that already has the target status also returns `is_success` `false`. One
   alarm can cover several people, so a flow that closes it once per person sees this routinely.
-- A closed alarm leaves the feed and shifts the pages. Close alarms after a crawl has finished.
+- A closed alarm can leave the feed and shift the pages. Close alarms after a crawl has
+  finished.
 
 ## Performance
 
@@ -169,7 +170,7 @@ template show only `Status Code` and `Body`. Read `is_success` there with an **O
 
 ## Related
 
-The [SOCRadar API reference](https://github.com/orcunsami/socradar-api-docs) is the OpenAPI file
+The [SOCRadar API reference](https://github.com/radargoger/socradar-api-docs) is the OpenAPI file
 of the SOCRadar REST API. Its README lists the two paths this connector calls.
 
 ## Support
