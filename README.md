@@ -1,6 +1,6 @@
 # SOCRadar connector for Okta Workflows
 
-**Connector version: 0.9.0**
+**Connector version: 0.10.0**
 
 SOCRadar finds credentials that infostealer malware has stolen and published in botnet logs.
 This connector brings that data into Okta Workflows. A flow can match the exposed credentials to
