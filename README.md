@@ -1,6 +1,6 @@
 # SOCRadar connector for Okta Workflows
 
-**Connector version: 0.7.0**
+**Connector version: 0.9.0**
 
 SOCRadar finds credentials that infostealer malware has stolen and published in botnet logs.
 This connector brings that data into Okta Workflows. A flow can match the exposed credentials to
@@ -31,8 +31,9 @@ values:
 1. Add a SOCRadar card to a flow.
 2. Click the connection field and choose **New Connection**.
 3. Enter a name, the **API key** and the **Company ID**. Save.
-4. Okta does not check the key on save. Run one Get Botnet Data call over a narrow window to test
-   it.
+4. The connector checks the connection with one call to the SOCRadar botnet endpoint over an
+   empty date window. On the card, a working connection shows **Connection successful** and a
+   wrong API key shows **Unable to connect**.
 
 ### Scopes
 
@@ -166,7 +167,7 @@ template show only `Status Code` and `Body`. Read `is_success` there with an **O
 | The run is green but no records were processed | SOCRadar rejected the request. Check `is_success` |
 | The card fails with `401` | The API key is wrong or was revoked. Edit the connection |
 | The card fails with `404` | The connection has no Company ID |
-| A card shows "Unable to connect" | The connector has no connection test, so this label does not prove a fault |
+| A card shows "Unable to connect" | The connection check failed. Check the API key and the Company ID |
 
 ## Related
 
