@@ -36,8 +36,8 @@ values:
    wrong API key shows **Unable to connect**.
 
 5. Assign the connection to the folder that holds your flows (**Connections**, open the
-   connection, **Assign Folders**). Then open every SOCRadar card in each flow, choose the
-   connection on the card, and save the flow. A card with no connection selected makes the first
+   connection, **Assign Folders**). Then open every SOCRadar and Okta connector card in each
+   flow, choose the connection on the card, and save the flow. A card with no connection selected makes the first
    flow activation fail with HTTP 422 and no error text.
 
 ### Scopes
@@ -72,7 +72,7 @@ Group: **Query**
 | Page | Page number, starting at 1 | Text | Yes |
 | Limit | Records per page, from 1 to 5000 | Text | Yes |
 
-Dates use the format `YYYY-MM-DD HH:mm:ss` in UTC. Time zone offsets are not supported. An ISO value with `T` and `Z`, such as `2026-11-17T10:00:00Z`, is also accepted. A value the connector cannot read is not rejected by the flow. It is sent to SOCRadar as it is, and SOCRadar returns its own error response.
+Dates use the format `YYYY-MM-DD HH:mm:ss` in UTC. The connector's date check also lets an ISO value with `T` and `Z`, such as `2026-11-17T10:00:00Z`, through to SOCRadar. The check reads only the digits of a value, so a time zone offset is not applied. A value the connector cannot read is not rejected by the flow. It is sent to SOCRadar as it is, and SOCRadar returns its own error response.
 
 **Outputs**
 
