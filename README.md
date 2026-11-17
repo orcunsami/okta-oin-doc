@@ -1,6 +1,6 @@
 # SOCRadar connector for Okta Workflows
 
-**Connector version: 0.11.0**
+**Connector version: 0.13.0**
 
 SOCRadar finds credentials that infostealer malware has stolen and published in botnet logs.
 This connector brings that data into Okta Workflows. A flow can match the exposed credentials to
@@ -35,6 +35,11 @@ values:
    empty date window. On the card, a working connection shows **Connection successful** and a
    wrong API key shows **Unable to connect**.
 
+5. Assign the connection to the folder that holds your flows (**Connections**, open the
+   connection, **Assign Folders**). Then open every SOCRadar card in each flow, choose the
+   connection on the card, and save the flow. A card with no connection selected makes the first
+   flow activation fail with HTTP 422 and no error text.
+
 ### Scopes
 
 None. The connector uses an API key.
@@ -67,6 +72,8 @@ Group: **Query**
 | Page | Page number, starting at 1 | Text | Yes |
 | Limit | Records per page, from 1 to 5000 | Text | Yes |
 
+Dates use the format `YYYY-MM-DD HH:mm:ss` in UTC. Time zone offsets are not supported. An ISO value with `T` and `Z`, such as `2026-11-17T10:00:00Z`, is also accepted. A value the connector cannot read is not rejected by the flow. It is sent to SOCRadar as it is, and SOCRadar returns its own error response.
+
 **Outputs**
 
 Group: **Response**
@@ -96,6 +103,9 @@ The records are at `data.data` in `Body`. The total for the whole window is at
 - An End Date earlier than the Start Date fails the card with HTTP `400` and the message
   `endDate must be later than startDate`. An End Date with the time `00:00:00` counts as the end
   of that day, so it is accepted when it falls on the Start Date's day.
+- A date the connector can read has 14 digits or more once every character that is not a digit is
+  removed, or exactly 8 digits (a date only). Other values are passed to SOCRadar, which returns its
+  own validation error.
 - One Object Get on `data` returns an object, not the list. A For Each over it runs once, and the
   run still ends green.
 - An empty page does not mean the window is done. It is done when the records you fetched reach
