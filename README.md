@@ -35,10 +35,11 @@ values:
    empty date window. On the card, a working connection shows **Connection successful** and a
    wrong API key shows **Unable to connect**.
 
-5. Assign the connection to the folder that holds your flows (**Connections**, open the
-   connection, **Assign Folders**). Then open every SOCRadar and Okta connector card in each
-   flow, choose the connection on the card, and save the flow. A card with no connection selected makes the first
-   flow activation fail with HTTP 422 and no error text.
+5. Assign both connections, the SOCRadar connection and the Okta connection, to the folder
+   that holds your flows (**Connections**, open each connection, **Assign Folders**). Then open
+   every SOCRadar and Okta connector card in each flow, choose the connection on the card, and
+   save the flow. Assigning the folder is not enough on its own. A card with no connection
+   selected makes the first flow activation fail with HTTP 422 and no error text.
 
 ### Scopes
 
